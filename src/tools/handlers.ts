@@ -66,9 +66,11 @@ export async function handleToolCall(
     case "puppeteer_navigate":
       try {
         logger.info('Navigating to URL', { url: args.url });
+        const waitUntil = args.waitUntil || 'domcontentloaded';
+        const timeout = args.timeout || 30000;
         const response = await page.goto(args.url, {
-          waitUntil: 'networkidle0',
-          timeout: 30000
+          waitUntil: waitUntil as any,
+          timeout: timeout
         });
         
         if (!response) {

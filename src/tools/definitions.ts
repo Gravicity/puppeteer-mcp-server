@@ -26,7 +26,16 @@ export const TOOLS: Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        url: { type: "string" },
+        url: { type: "string", description: "URL to navigate to" },
+        waitUntil: {
+          type: "string",
+          description: "When to consider navigation complete. Options: load, domcontentloaded, networkidle0, networkidle2. Default: domcontentloaded. Use networkidle0 only for static sites without WebSocket connections.",
+          enum: ["load", "domcontentloaded", "networkidle0", "networkidle2"]
+        },
+        timeout: {
+          type: "number",
+          description: "Navigation timeout in milliseconds. Default: 30000 (30 seconds)"
+        }
       },
       required: ["url"],
     },
